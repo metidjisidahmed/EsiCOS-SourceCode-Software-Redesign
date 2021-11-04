@@ -5,4 +5,4 @@
 #### original Software code Repo :
 We Have to give the software's developers the credit : [Repo link](https://github.com/nassimaliou/EasyCOS-SourceCode)
 
-Please Make sure to star that repo if you are already give our rep a star
+Please Make sure to star that repo if you are already give our repo a star
