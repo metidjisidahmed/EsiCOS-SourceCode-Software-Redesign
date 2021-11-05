@@ -24,10 +24,10 @@ namespace WpfApp2
 
     //Class principale de l'interface de recherche statiatique par liste
 
-    public partial class Window3 : UserControl
+    public partial class Statistiques_List : UserControl
     {
 
-        public Window3()
+        public Statistiques_List()
         {
             responsable.liste_filtres_rem.Clear();
             responsable.liste_filtres.Clear();
@@ -363,7 +363,7 @@ namespace WpfApp2
                 responsable.clés_employés.Clear();
                 responsable.clés_types.Clear();
                 Grid_Principale.Children.Clear();
-                Grid_Principale.Children.Add(new Window4());
+                Grid_Principale.Children.Add(new Statistiques_List_Recherche_Result());
             }
 
             else

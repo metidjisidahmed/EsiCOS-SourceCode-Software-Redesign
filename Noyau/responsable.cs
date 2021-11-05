@@ -1293,7 +1293,7 @@ namespace WpfApp2
 
         public static void initialisation_archive_auto()//Archivage automatique de touts les prets en tenant compte de la durée saisie par l'utilisateur
         {
-            if (Window2.mode_archivage)
+            if (Settings.mode_archivage)
             {
                 archiver_pret_remboursable();
                 archiver_pret_non_remboursable();

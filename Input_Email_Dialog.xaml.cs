@@ -3,16 +3,18 @@ using System.Windows;
 
 namespace WpfTutorialSamples.Dialogs
 {
-	public partial class InputDialogSample : Window
+	public partial class Input_Email_Dialog : Window
 	{
-		public bool sortie = false;
-		public bool aff = false;
+		// Sid Ahmed commented that because they are not used
+		// public bool sortie = false;
+		// public bool aff = false;
 		public double mo = 0;
 		WpfApp2.pret_remboursable pr;
 
 		//Class principale de la fenetre d'ajout de mail de l'employé
 
-		public InputDialogSample(WpfApp2.pret_remboursable p, double m, string question, string defaultAnswer = "")
+		public Input_Email_Dialog(WpfApp2.pret_remboursable p, double m, string question, string defaultAnswer = "")
+		
 		{
 			InitializeComponent();			
 			lblQuestion.Content = question;
@@ -30,7 +32,8 @@ namespace WpfTutorialSamples.Dialogs
 			WpfApp2.responsable.pile_modifications.Add(new WpfApp2.Modification(1, pr.Employé.Cle));
 
 			WpfApp2.responsable.Envoi_mail(pr, mo);
-			aff = true;
+			// Sid Ahmed commented that because they are not used
+			// aff = true;
 			this.Close();
 		}
 
@@ -39,15 +42,17 @@ namespace WpfTutorialSamples.Dialogs
 			txtAnswer.SelectAll();
 			txtAnswer.Focus();
 		}
-
-		public string Answer
-		{
-			get { return txtAnswer.Text; }
-		}
+		
+		// Sid Ahmed Commented it because it's not used 
+		// public string Answer
+		// {
+		// 	get { return txtAnswer.Text; }
+		// }
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-			this.sortie = true;
+			// Sid Ahmed commented that because they are not used
+			// this.sortie = true;
 			this.Close();
 		}
 	}

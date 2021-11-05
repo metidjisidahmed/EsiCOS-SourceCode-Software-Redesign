@@ -19,11 +19,11 @@ namespace WpfApp2
     /// <summary>
     /// Logique d'interaction pour UserControl1.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class Archivage_filtre : UserControl
     {
         int compt = 0;
         List<String> services = new List<String>();
-        public UserControl1()
+        public Archivage_filtre()
         {
             InitializeComponent();
             complete_type_pret();
@@ -277,7 +277,7 @@ namespace WpfApp2
             {
                 responsable.recherche_par_criteres_deux(remboursable, choix, date1, d_inf, date2, d_max, date3, pv_min, date4, pv_max, durée1, durée_min, durée2, durée_max, somme1, somme_min, somme2, somme_max, employé, type, servic);
                 Grid_Principale.Children.Clear();
-                Grid_Principale.Children.Add(new fenetre2());
+                Grid_Principale.Children.Add(new Archivage_filtre_resultat());
             }
             else
             {

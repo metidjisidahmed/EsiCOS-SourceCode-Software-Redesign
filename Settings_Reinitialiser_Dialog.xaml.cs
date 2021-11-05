@@ -3,11 +3,11 @@ using System.Windows;
 
 namespace WpfTutorialSamples.Dialogs
 {
-	public partial class InputDialogSample2 : Window
+	public partial class Settings_Reinitialiser_Dialog : Window
 	{
 		//Class principale de la fenetre de reinitialisation de la base de données
 
-		public InputDialogSample2()
+		public Settings_Reinitialiser_Dialog()
 		{
 			InitializeComponent();
 		}

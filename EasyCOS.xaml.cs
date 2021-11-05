@@ -137,7 +137,7 @@ namespace WpfApp2
                     break;
                 case 1:
                     Grid_Principale.Children.Clear();
-                    Grid_Principale.Children.Add(new Suivi_Prét());
+                    Grid_Principale.Children.Add(new Prét_accordés());
                     prelevement.Visibility = Visibility.Hidden;
                     export_grid.Visibility = Visibility.Hidden;
                     break;
@@ -155,7 +155,7 @@ namespace WpfApp2
                     break;
                 case 4:
                     Grid_Principale.Children.Clear();
-                    Grid_Principale.Children.Add(new stat());
+                    Grid_Principale.Children.Add(new Choix_Statistiques_Mode());
                     prelevement.Visibility = Visibility.Hidden;
                     export_grid.Visibility = Visibility.Hidden;
                     break;
@@ -199,7 +199,7 @@ namespace WpfApp2
             Grid_Principale.Children.Clear();
             Grid_Principale.Children.Add(new Accueil());
             listMenu.SelectedIndex = 0;
-            grid_gnrl.Children.Add(new Window2(Pseudo_show, Password_show, image_info));
+            grid_gnrl.Children.Add(new Settings(Pseudo_show, Password_show, image_info));
         }
 
         private void media_MediaEnded(object sender, RoutedEventArgs e)
@@ -677,17 +677,17 @@ namespace WpfApp2
                 }
             }
 
-            if (Window2.envoi_notif)
+            if (Settings.envoi_notif)
             {
-                if (Window2.mode_envoi)
+                if (Settings.mode_envoi)
                 {
                     if (!pret.Employé.Email.Equals(""))
                         responsable.Envoi_mail(pret, montant_prelevé);
                     else
                     {
-                        WpfTutorialSamples.Dialogs.InputDialogSample input = new WpfTutorialSamples.Dialogs.InputDialogSample(pret, montant_prelevé, "Veuillez entrer le mail de l'employé :", "mail@esi.dz");
-                        input.ShowActivated = true;
-                        input.Show();
+                        WpfTutorialSamples.Dialogs.Input_Email_Dialog inputEmail = new WpfTutorialSamples.Dialogs.Input_Email_Dialog(pret, montant_prelevé, "Veuillez entrer le mail de l'employé :", "mail@esi.dz");
+                        inputEmail.ShowActivated = true;
+                        inputEmail.Show();
                     }
                 }
                 else
@@ -700,9 +700,9 @@ namespace WpfApp2
                                 responsable.Envoi_mail(pret, montant_prelevé);
                             else
                             {
-                                WpfTutorialSamples.Dialogs.InputDialogSample input = new WpfTutorialSamples.Dialogs.InputDialogSample(pret, montant_prelevé, "Veuillez entrer le mail de l'employé :", "mail@esi.dz");
-                                input.ShowActivated = true;
-                                input.Show();
+                                WpfTutorialSamples.Dialogs.Input_Email_Dialog inputEmail = new WpfTutorialSamples.Dialogs.Input_Email_Dialog(pret, montant_prelevé, "Veuillez entrer le mail de l'employé :", "mail@esi.dz");
+                                inputEmail.ShowActivated = true;
+                                inputEmail.Show();
                             }
                             break;
                         case MessageBoxResult.No:

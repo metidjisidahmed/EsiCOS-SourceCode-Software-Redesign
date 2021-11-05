@@ -23,8 +23,8 @@ namespace WpfApp2
 
         public void archiver(string observation = "Aucune observation indroduite par l'utilisateur.")
         {
-            int difference = DateTime.Compare(DateTime.Now, this.Date_pv.AddDays(int.Parse(Window2.durée_avant_archivage_d) + (int.Parse(Window2.durée_avant_archivage_m) * 30)));
-            if ( (difference > 0) && (Window2.mode_archivage))
+            int difference = DateTime.Compare(DateTime.Now, this.Date_pv.AddDays(int.Parse(Settings.durée_avant_archivage_d) + (int.Parse(Settings.durée_avant_archivage_m) * 30)));
+            if ( (difference > 0) && (Settings.mode_archivage))
             {
                 int cle = responsable.cle_a_affecter_archive();
                 Archive a = new Archive(cle, this, observation, this.Date_pv, -1);

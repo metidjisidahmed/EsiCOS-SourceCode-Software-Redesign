@@ -582,8 +582,8 @@ namespace WpfApp2
         }
         public void archiver() //archivage automatique apres un mois
         {
-            int difference = DateTime.Compare(DateTime.Now, this.date_actuelle.AddDays(Int32.Parse(Window2.durée_avant_archivage_d) + (Int32.Parse(Window2.durée_avant_archivage_m) * 30)));
-            if ((this.debordement == -1) && (this.montant == this.somme_remboursée) && (difference == 1) && (Window2.mode_archivage))
+            int difference = DateTime.Compare(DateTime.Now, this.date_actuelle.AddDays(Int32.Parse(Settings.durée_avant_archivage_d) + (Int32.Parse(Settings.durée_avant_archivage_m) * 30)));
+            if ((this.debordement == -1) && (this.montant == this.somme_remboursée) && (difference == 1) && (Settings.mode_archivage))
             {
                 string observ;
                 int cle = responsable.cle_a_affecter_archive();

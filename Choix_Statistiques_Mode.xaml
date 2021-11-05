@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WpfApp2.stat"
+﻿<UserControl x:Class="WpfApp2.Choix_Statistiques_Mode"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

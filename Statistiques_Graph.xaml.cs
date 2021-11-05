@@ -23,7 +23,7 @@ namespace WpfApp2
     /// Logique d'interaction pour Statistiques.xaml
     /// </summary>
 
-    public partial class Statistiques : UserControl
+    public partial class Statistiques_Graph : UserControl
     {
         public static int year = 2020;
         public static double montant = 0;
@@ -31,29 +31,30 @@ namespace WpfApp2
 
         //Class principale de l'interface de statistiques par graphe
 
-        public Statistiques()
+        public Statistiques_Graph()
         {
             InitializeComponent();
 
         }
 
         //methodes de manupulation de l'interface
-
-        private void Chart_OnDataClick(object sender, ChartPoint chartpoint)
-        {
-            var chart = (LiveCharts.Wpf.PieChart)chartpoint.ChartView;
-            foreach (PieSeries series in chart.Series)
-                series.PushOut = 0;
-
-            var selectedSeries = (PieSeries)chartpoint.SeriesView;
-            selectedSeries.PushOut = 20;
-        }
+        // Sid Ahmed commented that because it's not used
+        // private void Chart_OnDataClick(object sender, ChartPoint chartpoint)
+        // {
+        //     var chart = (LiveCharts.Wpf.PieChart)chartpoint.ChartView;
+        //     foreach (PieSeries series in chart.Series)
+        //         series.PushOut = 0;
+        //
+        //     var selectedSeries = (PieSeries)chartpoint.SeriesView;
+        //     selectedSeries.PushOut = 20;
+        // }
         public SeriesCollection SeriesCollection3 { get; set; }
         public SeriesCollection SeriesCollection2 { get; set; }
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
         public Func<double, string> YFormatter { get; set; }
-        public Func<double, string> LFormatter { get; set; }
+        // Sid Ahmed ommented bcz it's not used'
+        // public Func<double, string> LFormatter { get; set; }
         public Func<ChartPoint, string> PointLabel { get; set; }
 
         private void first_page_Click(object sender, RoutedEventArgs e)

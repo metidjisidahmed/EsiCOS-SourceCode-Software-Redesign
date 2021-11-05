@@ -33,9 +33,9 @@ namespace WpfApp2
         {
             Install_DB();
             Lecture_BDD();
-            Window2.charger_option();
-            user_name = Window2.user_name;
-            user_paswword = Window2.user_Password;
+            Settings.charger_option();
+            user_name = Settings.user_name;
+            user_paswword = Settings.user_Password;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             verification.Close();

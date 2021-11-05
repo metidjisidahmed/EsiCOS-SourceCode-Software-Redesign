@@ -20,9 +20,9 @@ namespace WpfApp2
 
     //Class principale de l'interface de statistiques par graph
 
-    public partial class Window4 : UserControl
+    public partial class Statistiques_List_Recherche_Result : UserControl
     {
-        public Window4()
+        public Statistiques_List_Recherche_Result()
         {
             InitializeComponent();
             actualiser();
@@ -131,7 +131,7 @@ namespace WpfApp2
         private void Retour_Click(object sender, RoutedEventArgs e)
         {
             Main_Grid.Children.Clear();
-            Main_Grid.Children.Add(new Window3());
+            Main_Grid.Children.Add(new Statistiques_List());
 
         }
     }

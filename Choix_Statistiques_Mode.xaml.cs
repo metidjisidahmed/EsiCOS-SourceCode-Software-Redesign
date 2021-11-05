@@ -21,22 +21,22 @@ namespace WpfApp2
     
     //fenetre intermediaire pour choix du mode de statistiques
 
-    public partial class stat : UserControl
+    public partial class Choix_Statistiques_Mode : UserControl
     {
-        public stat()
+        public Choix_Statistiques_Mode()
         {
             InitializeComponent();
         }
         private void On_graph_Click(object sender, RoutedEventArgs e)
         {
             Grid_Principale.Children.Clear();
-            Grid_Principale.Children.Add(new Statistiques());
+            Grid_Principale.Children.Add(new Statistiques_Graph());
         }
 
         private void On_list_Click(object sender, RoutedEventArgs e)
         {
             Grid_Principale.Children.Clear();
-            Grid_Principale.Children.Add(new Window3());
+            Grid_Principale.Children.Add(new Statistiques_List());
         }
     }
 }

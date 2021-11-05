@@ -20,7 +20,7 @@ namespace WpfApp2
     /// <summary>
     /// Logique d'interaction pour Window2.xaml
     /// </summary>
-    public partial class Window2 : UserControl
+    public partial class Settings : UserControl
     {
         public ImageSource user_photo;
         public static string user_name;
@@ -88,7 +88,7 @@ namespace WpfApp2
 
         //Class principale de l'interface de parametres
 
-        public Window2(TextBox psuedo_show, PasswordBox pass, Image img)
+        public Settings(TextBox psuedo_show, PasswordBox pass, Image img)
         {
             InitializeComponent();
             charger_option();
@@ -371,7 +371,7 @@ namespace WpfApp2
             switch(r)
             {
                 case MessageBoxResult.OK:
-                    WpfTutorialSamples.Dialogs.InputDialogSample2 fenetre = new WpfTutorialSamples.Dialogs.InputDialogSample2();
+                    WpfTutorialSamples.Dialogs.Settings_Reinitialiser_Dialog fenetre = new WpfTutorialSamples.Dialogs.Settings_Reinitialiser_Dialog();
                     fenetre.ShowActivated = true;
                     fenetre.Show();
                     break;

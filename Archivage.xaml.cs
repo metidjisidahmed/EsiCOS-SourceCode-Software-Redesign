@@ -91,7 +91,7 @@ namespace WpfApp2
         private void Filtrer_Click(object sender, RoutedEventArgs e)
         {
             archivees.Children.Clear();
-            archivees.Children.Add(new UserControl1());
+            archivees.Children.Add(new Archivage_filtre());
         }
 
         private void Enregistrer_excel_click(object sender, RoutedEventArgs e)

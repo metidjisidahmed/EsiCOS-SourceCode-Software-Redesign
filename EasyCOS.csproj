@@ -258,11 +258,8 @@
     <Compile Include="Employes.xaml.cs">
       <DependentUpon>Employes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="fenetre1.xaml.cs">
-      <DependentUpon>fenetre1.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="fenetre2.xaml.cs">
-      <DependentUpon>fenetre2.xaml</DependentUpon>
+    <Compile Include="Archivage_filtre_resultat.xaml.cs">
+      <DependentUpon>Archivage_filtre_resultat.xaml</DependentUpon>
     </Compile>
     <Compile Include="NouveauPrêts.xaml.cs">
       <DependentUpon>NouveauPrêts.xaml</DependentUpon>
@@ -278,14 +275,14 @@
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="stat.xaml.cs">
-      <DependentUpon>stat.xaml</DependentUpon>
+    <Compile Include="Choix_Statistiques_Mode.xaml.cs">
+      <DependentUpon>Choix_Statistiques_Mode.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Statistiques.xaml.cs">
-      <DependentUpon>Statistiques.xaml</DependentUpon>
+    <Compile Include="Statistiques_Graph.xaml.cs">
+      <DependentUpon>Statistiques_Graph.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Suivi_Prét.xaml.cs">
-      <DependentUpon>Suivi_Prét.xaml</DependentUpon>
+    <Compile Include="Prét_accordés.xaml.cs">
+      <DependentUpon>Prét_accordés.xaml</DependentUpon>
     </Compile>
     <Compile Include="Connexion.xaml.cs">
       <DependentUpon>Connexion.xaml</DependentUpon>
@@ -293,20 +290,20 @@
     <Compile Include="dons.xaml.cs">
       <DependentUpon>dons.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
+    <Compile Include="Archivage_filtre.xaml.cs">
+      <DependentUpon>Archivage_filtre.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Window3.xaml.cs">
-      <DependentUpon>Window3.xaml</DependentUpon>
+    <Compile Include="Statistiques_List.xaml.cs">
+      <DependentUpon>Statistiques_List.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Window4.xaml.cs">
-      <DependentUpon>Window4.xaml</DependentUpon>
+    <Compile Include="Statistiques_List_Recherche_Result.xaml.cs">
+      <DependentUpon>Statistiques_List_Recherche_Result.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Window5.xaml.cs">
-      <DependentUpon>Window5.xaml</DependentUpon>
+    <Compile Include="Input_Email_Dialog.xaml.cs">
+      <DependentUpon>Input_Email_Dialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Window6.xaml.cs">
-      <DependentUpon>Window6.xaml</DependentUpon>
+    <Compile Include="Settings_Reinitialiser_Dialog.xaml.cs">
+      <DependentUpon>Settings_Reinitialiser_Dialog.xaml</DependentUpon>
     </Compile>
     <Page Include="Accueil.xaml">
       <SubType>Designer</SubType>
@@ -324,15 +321,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="fenetre1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="fenetre2.xaml">
+    <Page Include="Archivage_filtre_resultat.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="EasyCOS.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -340,8 +333,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="EasyCOS.xaml.cs">
+      <DependentUpon>EasyCOS.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="NouveauPrêts.xaml">
@@ -352,15 +345,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="stat.xaml">
+    <Page Include="Choix_Statistiques_Mode.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Statistiques.xaml">
+    <Page Include="Statistiques_Graph.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Suivi_Prét.xaml">
+    <Page Include="Prét_accordés.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -372,23 +365,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControl1.xaml">
+    <Page Include="Archivage_filtre.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Window3.xaml">
+    <Page Include="Statistiques_List.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Window4.xaml">
+    <Page Include="Statistiques_List_Recherche_Result.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Window5.xaml">
+    <Page Include="Input_Email_Dialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Window6.xaml">
+    <Page Include="Settings_Reinitialiser_Dialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

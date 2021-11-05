@@ -22,7 +22,7 @@ namespace WpfApp2
     /// Logique d'interaction pour Suivi_Prét.xaml
     /// </summary>
 
-    public partial class Suivi_Prét : UserControl
+    public partial class Prét_accordés : UserControl
     {
         private static string nom_emp_;
         private static string prenom_emp_;
@@ -45,7 +45,7 @@ namespace WpfApp2
 
         //Class principale de l'interface de suivi des prets
 
-        public Suivi_Prét()
+        public Prét_accordés()
         {
             InitializeComponent();
             actualiser();
@@ -1316,11 +1316,12 @@ namespace WpfApp2
                 }
             }
         }
-
-        private void introduire_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {            
-             liste_employes.Visibility = Visibility.Visible;               
-        }        
+        
+        // Sidahmed commented it bcz it's not used
+        // private void introduire_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        // {            
+        //      liste_employes.Visibility = Visibility.Visible;               
+        // }        
 
         private void actualiser_click(object sender, RoutedEventArgs e)
         {
@@ -1677,17 +1678,17 @@ namespace WpfApp2
             }
             if(cpt == 0) 
             { 
-                if (Window2.envoi_notif)
+                if (Settings.envoi_notif)
                 {
-                    if (Window2.mode_envoi)
+                    if (Settings.mode_envoi)
                     {
                         if (!pret.Employé.Email.Equals(""))
                             responsable.Envoi_mail(pret, montant_prelevé);
                         else
                         {
-                            WpfTutorialSamples.Dialogs.InputDialogSample input = new WpfTutorialSamples.Dialogs.InputDialogSample(pret, montant_prelevé, "Veuillez entrer le mail de l'employé :", "mail@esi.dz");
-                            input.ShowActivated = true;
-                            input.Show();
+                            WpfTutorialSamples.Dialogs.Input_Email_Dialog inputEmail = new WpfTutorialSamples.Dialogs.Input_Email_Dialog(pret, montant_prelevé, "Veuillez entrer le mail de l'employé :", "mail@esi.dz");
+                            inputEmail.ShowActivated = true;
+                            inputEmail.Show();
                         }
                     }
                     else
@@ -1700,9 +1701,9 @@ namespace WpfApp2
                                     responsable.Envoi_mail(pret, montant_prelevé);
                                 else
                                 {
-                                    WpfTutorialSamples.Dialogs.InputDialogSample input = new WpfTutorialSamples.Dialogs.InputDialogSample(pret, montant_prelevé, "Veuillez entrer le mail de l'employé :", "mail@esi.dz");
-                                    input.ShowActivated = true;
-                                    input.Show();
+                                    WpfTutorialSamples.Dialogs.Input_Email_Dialog inputEmail = new WpfTutorialSamples.Dialogs.Input_Email_Dialog(pret, montant_prelevé, "Veuillez entrer le mail de l'employé :", "mail@esi.dz");
+                                    inputEmail.ShowActivated = true;
+                                    inputEmail.Show();
                                 }
                                 break;
                             case MessageBoxResult.No:
@@ -1751,7 +1752,7 @@ namespace WpfApp2
                     nb_mois_saisi.Visibility = Visibility.Hidden;
                     m.Visibility = Visibility.Hidden;
                     montant_prelevement.IsReadOnly = true;
-                    Suivi_Prét.montant = "      " + (pret.Montant / pret.Durée).ToString();
+                    Prét_accordés.montant = "      " + (pret.Montant / pret.Durée).ToString();
                 }
                 else
                 {
@@ -1763,7 +1764,7 @@ namespace WpfApp2
                         double nb_mois_ = Double.Parse(nb_mois_saisi.Text);
                         double montant_multip = (pret.Montant / (double)pret.Durée) * nb_mois_;
                         montant_prelevement.IsReadOnly = true;
-                        Suivi_Prét.montant = "      " + montant_multip.ToString();
+                        Prét_accordés.montant = "      " + montant_multip.ToString();
                     }
                     else
                     {
@@ -1773,7 +1774,7 @@ namespace WpfApp2
                             nb_mois_saisi.Visibility = Visibility.Hidden;
                             m.Visibility = Visibility.Hidden;
                             montant_prelevement.IsReadOnly = true;
-                            Suivi_Prét.montant = "      " + (pret.Montant - pret.Somme_remboursée).ToString();
+                            Prét_accordés.montant = "      " + (pret.Montant - pret.Somme_remboursée).ToString();
                         }
                         else
                         {
@@ -1783,7 +1784,7 @@ namespace WpfApp2
                                 nb_mois_saisi.Visibility = Visibility.Hidden;
                                 m.Visibility = Visibility.Hidden;
                                 montant_prelevement.IsReadOnly = true;
-                                Suivi_Prét.montant = "      0";
+                                Prét_accordés.montant = "      0";
                             }
                             else
                             {
@@ -1793,7 +1794,7 @@ namespace WpfApp2
                                     nb_mois_saisi.Visibility = Visibility.Hidden;
                                     m.Visibility = Visibility.Hidden;
                                     montant_prelevement.IsReadOnly = true;
-                                    Suivi_Prét.montant = "      0";
+                                    Prét_accordés.montant = "      0";
                                 }
                                 else
                                 {
@@ -1829,9 +1830,9 @@ namespace WpfApp2
             {
                 double nb_mois_ = Double.Parse(nb_mois_saisi.Text);
                 double montant_multip = (pret.Montant / (double)pret.Durée) * nb_mois_;
-                Suivi_Prét.montant = "      " + montant_multip.ToString();
+                Prét_accordés.montant = "      " + montant_multip.ToString();
             }
-            montant_prelevement.Text = Suivi_Prét.montant;
+            montant_prelevement.Text = Prét_accordés.montant;
         }
 
         private void liste_employes_TextChanged(object sender, TextChangedEventArgs e)
@@ -2173,49 +2174,51 @@ namespace WpfApp2
 
         }
 
-        public void auto()
-        {
-            List<employee> source = new List<employee>();
-
-            foreach (KeyValuePair<int, pret_remboursable> liste in responsable.liste_pret_remboursable)
-            {
-                if (liste.Value.isPere())
-                {
-                    employee Employe = new employee();
-                    Employe.Nom = liste.Value.Employé.Nom;
-                    Employe.Prenom = liste.Value.Employé.Prenom;
-                    Employe.N_Pv = liste.Value.Num_pv.ToString();
-                    Employe.Type_Prêt = liste.Value.Type_Pret.Description;
-                    Employe.Date_de_Pv = liste.Value.Date_pv.ToShortDateString();
-                    Employe.Date_demande = liste.Value.Date_demande.ToShortDateString();
-                    Employe.Montant_Prét = liste.Value.Montant.ToString();
-                    source.Add(Employe);
-                }
-            }
-
-
-            Donnée_Suivi_Prêt.ItemsSource = source;
-        }
-        private void Donnée_dons_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
-        {
-            if (check_box_Archiver.Visibility == Visibility.Visible)
-            {
-                var firstCol = Donnée_Suivi_Prêt.Columns.OfType<DataGridCheckBoxColumn>().FirstOrDefault(c => c.DisplayIndex == 0);
-                foreach (var item in Donnée_Suivi_Prêt.Items)
-                {
-                    var chBx = firstCol.GetCellContent(item) as CheckBox;
-                    DataGridRow row = firstCol.GetCellContent(item) as DataGridRow;
-                    if ((chBx != null) && (row != null))
-                    {
-                        if (row.IsSelected)
-                        {
-                            chBx.IsChecked = true;
-                        }
-                    }
-
-                }
-            }
-        }
+        // Sid Ahmed commented that because it's not used 
+        
+        // public void auto()
+        // {
+        //     List<employee> source = new List<employee>();
+        //
+        //     foreach (KeyValuePair<int, pret_remboursable> liste in responsable.liste_pret_remboursable)
+        //     {
+        //         if (liste.Value.isPere())
+        //         {
+        //             employee Employe = new employee();
+        //             Employe.Nom = liste.Value.Employé.Nom;
+        //             Employe.Prenom = liste.Value.Employé.Prenom;
+        //             Employe.N_Pv = liste.Value.Num_pv.ToString();
+        //             Employe.Type_Prêt = liste.Value.Type_Pret.Description;
+        //             Employe.Date_de_Pv = liste.Value.Date_pv.ToShortDateString();
+        //             Employe.Date_demande = liste.Value.Date_demande.ToShortDateString();
+        //             Employe.Montant_Prét = liste.Value.Montant.ToString();
+        //             source.Add(Employe);
+        //         }
+        //     }
+        //
+        //
+        //     Donnée_Suivi_Prêt.ItemsSource = source;
+        // }
+        // private void Donnée_dons_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        // {
+        //     if (check_box_Archiver.Visibility == Visibility.Visible)
+        //     {
+        //         var firstCol = Donnée_Suivi_Prêt.Columns.OfType<DataGridCheckBoxColumn>().FirstOrDefault(c => c.DisplayIndex == 0);
+        //         foreach (var item in Donnée_Suivi_Prêt.Items)
+        //         {
+        //             var chBx = firstCol.GetCellContent(item) as CheckBox;
+        //             DataGridRow row = firstCol.GetCellContent(item) as DataGridRow;
+        //             if ((chBx != null) && (row != null))
+        //             {
+        //                 if (row.IsSelected)
+        //                 {
+        //                     chBx.IsChecked = true;
+        //                 }
+        //             }
+        //
+        //         }
+        //     }
+        // }
         private void Sortie_excel_Click(object sender, RoutedEventArgs e)
         {
             responsable.export_prêts_remboursable();

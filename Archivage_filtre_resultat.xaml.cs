@@ -17,9 +17,9 @@ namespace WpfApp2
     /// <summary>
     /// Logique d'interaction pour fenetre2.xaml
     /// </summary>
-    public partial class fenetre2 : UserControl
+    public partial class Archivage_filtre_resultat : UserControl
     {
-        public fenetre2()
+        public Archivage_filtre_resultat()
         {
             InitializeComponent();
             actualiser();
