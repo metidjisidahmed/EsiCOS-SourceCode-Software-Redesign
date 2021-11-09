@@ -363,15 +363,15 @@ namespace WpfApp2
         //         liste.Value.affiche_attribus();
         //     }
         // }
-        // public static void affiche_liste_pret_remboursable()
-        // {
-        //     foreach (KeyValuePair<int, pret_remboursable> liste in responsable.liste_pret_remboursable)
-        //     {
-        //         Console.WriteLine("*********************************");
-        //         Console.WriteLine("Clé = " + liste.Key + " || ");
-        //         liste.Value.affiche_attributs_complets();
-        //     }
-        // }
+        public static void affiche_liste_pret_remboursable()
+         {
+             foreach (KeyValuePair<int, pret_remboursable> liste in responsable.liste_pret_remboursable)
+             {
+                 Console.WriteLine("*********************************");
+                 Console.WriteLine("Clé = " + liste.Key + " || ");
+                 liste.Value.affiche_attributs_complets();
+             }
+         }
         // public static void affiche_liste_pret_non_remboursable()
         // {
         //     foreach (KeyValuePair<int, pret_non_remboursable> liste in responsable.liste_pret_non_remboursables)
@@ -487,7 +487,7 @@ namespace WpfApp2
 
 
         //clés a affecter-----------------------------------------------------------
-        
+
         // AFFECTATION ID ( Sid Ahmed Classification)
         public static int cle_a_affecter_employe()//Clé unique pour les employés
         {
@@ -1339,6 +1339,8 @@ namespace WpfApp2
                 responsable.liste_pret_remboursable_provisoire.Remove(element.Key);
             }
         }
+
+
         
         public static void retardement_paiement(int cle)//Retardement du paiement pendant un mois
         {
@@ -1926,6 +1928,7 @@ namespace WpfApp2
             responsable.choix_service.Clear();
         }
 
+        // ARCHIVES 
         public static void recherche_par_criteres_deux(bool remboursable, int choix, bool date1, DateTime d_inf, bool date2, DateTime d_max, bool date3, DateTime pv_min, bool date4, DateTime pv_max, bool durée1, int durée_min, bool durée2, int durée_max, bool somme1, double somme_min, bool somme2, double somme_max, bool employé, bool type, bool service)
         {
             responsable.remplissage_liste_filtres();
