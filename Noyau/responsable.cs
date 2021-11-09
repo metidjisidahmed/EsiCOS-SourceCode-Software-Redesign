@@ -52,6 +52,66 @@ namespace WpfApp2
         //----------------------------------------------------------------------------------
         public static string User_mail = "im_aliousalah@esi.dz";
         public static string User_pwd = "";
+        
+        // AUTRES ( Sid Ahmed classification
+        
+                // ENVOI MAIL ( Sid Ahmed classification )
+        public static void Envoi_mail(pret_remboursable pret, double montant)//Envoi de mail et notification à l'employé
+        {
+            if (montant != 0)
+            {
+                try
+                {
+                    SmtpClient client = new SmtpClient();
+                    client.Host = "smtp.gmail.com";
+                    client.Port = 25;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.UseDefaultCredentials = false;
+                    client.EnableSsl = true;
+
+                    client.Credentials = new System.Net.NetworkCredential(User_mail, User_pwd);
+
+                    client.Send(User_mail, pret.Employé.Email, "[Prelevement COS]", "Cher employé,\nUn montant de " + montant + " DA a été prelevé de votre compte le :" + DateTime.Now.ToShortDateString() + ",\n Cordialement.");
+                }
+
+                catch (Exception k)
+                {
+                    MessageBox.Show("Un Problème de connection est survenue.\nVeuillez vérifier votre connecvtion.", "erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                try
+                {
+                    SmtpClient client = new SmtpClient();
+                    client.Host = "smtp.gmail.com";
+                    client.Port = 25;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.UseDefaultCredentials = false;
+                    client.EnableSsl = true;
+
+                    client.Credentials = new System.Net.NetworkCredential(User_mail, User_pwd);
+
+                    client.Send(User_mail, pret.Employé.Email, "[Prelevement COS]", "Cher employé,\nVotre prélevemnet a été diféré ou vos detes sont effacées le :" + DateTime.Now.ToShortDateString() + ",\n Cordialement.");
+                }
+
+                catch (Exception k)
+                {
+                    MessageBox.Show("Un Problème de connection est survenue.\nVeuillez vérifier votre connecvtion.", "erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+        public static void ajout_service()//ajout de services
+        {
+            foreach (Employé emp in responsable.liste_employes.Values)
+            {
+                if (!services.Contains(emp.Service))
+                {
+                    services.Add(emp.Service);
+                }
+
+            }
+        }
         //lecture-----------------------------------------------------------
         public static void initialiser_dictionnaire_employes() //Initialisation de la liste des employés depuis la base de donnée
         {
@@ -282,180 +342,153 @@ namespace WpfApp2
             }
             cnx.Close();
         }
-
+        
+        // Sid ahmed commented  that because it's not used 
         //affichge-----------------------------------------------------------
-        public static void affiche_liste_employes()
-        {
-            foreach (KeyValuePair<int, Employé> liste in responsable.liste_employes)
-            {
-                Console.Write("Clé = " + liste.Key + " ||  ");
-                liste.Value.affiche_attribus();
-            }
-        }
+        // public static void affiche_liste_employes()
+        // {
+        //     foreach (KeyValuePair<int, Employé> liste in responsable.liste_employes)
+        //     {
+        //         Console.Write("Clé = " + liste.Key + " ||  ");
+        //         liste.Value.affiche_attribus();
+        //     }
+        // }
+        //
+        // public static void affiche_liste_type_pret()
+        // {
+        //     foreach (KeyValuePair<int, Type_pret> liste in responsable.liste_types)
+        //     {
+        //         Console.WriteLine("*********************************");
+        //         Console.WriteLine("Clé = " + liste.Key + " || ");
+        //         liste.Value.affiche_attribus();
+        //     }
+        // }
+        // public static void affiche_liste_pret_remboursable()
+        // {
+        //     foreach (KeyValuePair<int, pret_remboursable> liste in responsable.liste_pret_remboursable)
+        //     {
+        //         Console.WriteLine("*********************************");
+        //         Console.WriteLine("Clé = " + liste.Key + " || ");
+        //         liste.Value.affiche_attributs_complets();
+        //     }
+        // }
+        // public static void affiche_liste_pret_non_remboursable()
+        // {
+        //     foreach (KeyValuePair<int, pret_non_remboursable> liste in responsable.liste_pret_non_remboursables)
+        //     {
+        //         Console.WriteLine("*********************************");
+        //         Console.WriteLine("Clé = " + liste.Key + " || ");
+        //         liste.Value.affiche_attribus();
+        //     }
+        // }
+        //
+        // public static void affiche_liste_archive()
+        // {
+        //     foreach (KeyValuePair<int, Archive> liste in responsable.liste_archives)
+        //     {
+        //         Console.WriteLine("*********************************");
+        //         Console.WriteLine("Clé = " + liste.Key + " || ");
+        //         liste.Value.affiche_attribue();
+        //     }
+        // }
+        //
+        //
+        // //ajout-----------------------------------------------------------
+        // public static void ajouter_employe(Employé b) //ajout d'employés
+        // {
+        //
+        //     if (!(liste_employes.ContainsValue(b)))
+        //     {
+        //         liste_employes.Add(b.Cle, b);
+        //     }
+        //     else
+        //     {
+        //         Console.WriteLine("pas d'ajout d'employe");
+        //     }
+        // }
+        // public static void ajouter_type_pret(Type_pret b)//ajout de types prets
+        // {
+        //     int cpt = 0;
+        //     foreach (KeyValuePair<int, Type_pret> kvp in liste_types)
+        //     {
+        //         if (b.Equals(kvp.Value))
+        //         {
+        //             Console.WriteLine(b.Cle + " " + b.Description);
+        //             cpt++;
+        //         }
+        //     }
+        //     if (cpt == 0)
+        //     {
+        //         liste_types.Add(b.Cle, b);
+        //     }
+        //     else
+        //     {
+        //         Console.WriteLine("pas d'ajout de type");
+        //     }
+        // }
+        // public static void ajouter_pret_remboursable(pret_remboursable b)//ajout de prets remboursables
+        // {
+        //
+        //     if (!(liste_pret_remboursable.ContainsValue(b)))
+        //     {
+        //         liste_pret_remboursable.Add(b.Cle, b);
+        //     }
+        //     else
+        //     {
+        //         Console.WriteLine("pas d'ajout de pret remboursable");
+        //     }
+        // }
+        // public static void ajouter_pret_non_remboursable(pret_non_remboursable b)//ajout de prets non remboursables
+        // {
+        //
+        //     if (!(liste_pret_non_remboursables.ContainsValue(b)))
+        //     {
+        //         liste_pret_non_remboursables.Add(b.Cle, b);
+        //         responsable.tresor = responsable.tresor - b.Montant;
+        //     }
+        //     else
+        //     {
+        //         Console.WriteLine("pas d'ajout de pret non remboursable");
+        //     }
+        // }
+        //
+        // public static void ajouter_archive(Archive b)//ajout d'archives
+        // {
+        //
+        //     if (!(liste_archives.ContainsValue(b)))
+        //     {
+        //         liste_archives.Add(b.Cle, b);
+        //     }
+        //     else
+        //     {
+        //         Console.WriteLine("pas d'ajout d'archive");
+        //     }
+        // }
 
-        public static void affiche_liste_type_pret()
-        {
-            foreach (KeyValuePair<int, Type_pret> liste in responsable.liste_types)
-            {
-                Console.WriteLine("*********************************");
-                Console.WriteLine("Clé = " + liste.Key + " || ");
-                liste.Value.affiche_attribus();
-            }
-        }
-        public static void affiche_liste_pret_remboursable()
-        {
-            foreach (KeyValuePair<int, pret_remboursable> liste in responsable.liste_pret_remboursable)
-            {
-                Console.WriteLine("*********************************");
-                Console.WriteLine("Clé = " + liste.Key + " || ");
-                liste.Value.affiche_attributs_complets();
-            }
-        }
-        public static void affiche_liste_pret_non_remboursable()
-        {
-            foreach (KeyValuePair<int, pret_non_remboursable> liste in responsable.liste_pret_non_remboursables)
-            {
-                Console.WriteLine("*********************************");
-                Console.WriteLine("Clé = " + liste.Key + " || ");
-                liste.Value.affiche_attribus();
-            }
-        }
 
-        public static void affiche_liste_archive()
-        {
-            foreach (KeyValuePair<int, Archive> liste in responsable.liste_archives)
-            {
-                Console.WriteLine("*********************************");
-                Console.WriteLine("Clé = " + liste.Key + " || ");
-                liste.Value.affiche_attribue();
-            }
-        }
-
-
-        //ajout-----------------------------------------------------------
-        public static void ajouter_employe(Employé b) //ajout d'employés
-        {
-
-            if (!(liste_employes.ContainsValue(b)))
-            {
-                liste_employes.Add(b.Cle, b);
-            }
-            else
-            {
-                Console.WriteLine("pas d'ajout d'employe");
-            }
-        }
-        public static void ajouter_type_pret(Type_pret b)//ajout de types prets
-        {
-            int cpt = 0;
-            foreach (KeyValuePair<int, Type_pret> kvp in liste_types)
-            {
-                if (b.Equals(kvp.Value))
-                {
-                    Console.WriteLine(b.Cle + " " + b.Description);
-                    cpt++;
-                }
-            }
-            if (cpt == 0)
-            {
-                liste_types.Add(b.Cle, b);
-            }
-            else
-            {
-                Console.WriteLine("pas d'ajout de type");
-            }
-        }
-        public static void ajouter_pret_remboursable(pret_remboursable b)//ajout de prets remboursables
-        {
-
-            if (!(liste_pret_remboursable.ContainsValue(b)))
-            {
-                liste_pret_remboursable.Add(b.Cle, b);
-            }
-            else
-            {
-                Console.WriteLine("pas d'ajout de pret remboursable");
-            }
-        }
-        public static void ajouter_pret_non_remboursable(pret_non_remboursable b)//ajout de prets non remboursables
-        {
-
-            if (!(liste_pret_non_remboursables.ContainsValue(b)))
-            {
-                liste_pret_non_remboursables.Add(b.Cle, b);
-                responsable.tresor = responsable.tresor - b.Montant;
-            }
-            else
-            {
-                Console.WriteLine("pas d'ajout de pret non remboursable");
-            }
-        }
-
-        public static void ajouter_archive(Archive b)//ajout d'archives
-        {
-
-            if (!(liste_archives.ContainsValue(b)))
-            {
-                liste_archives.Add(b.Cle, b);
-            }
-            else
-            {
-                Console.WriteLine("pas d'ajout d'archive");
-            }
-        }
-
-        public static void ajout_service()//ajout de services
-        {
-            foreach (Employé emp in responsable.liste_employes.Values)
-            {
-                if (!services.Contains(emp.Service))
-                {
-                    services.Add(emp.Service);
-                }
-
-            }
-        }
 
         //manipulations des prets-----------------------------------------------------------
-        public static void suivi()//Suivi mensuel des prets
-        {
-            foreach (KeyValuePair<int, pret_remboursable> element in responsable.liste_pret_remboursable)
-            {
-                element.Value.paiement();
-            }
-            foreach (KeyValuePair<int, pret_remboursable> element in responsable.liste_pret_remboursable_provisoire)
-            {
-                responsable.liste_pret_remboursable.Add(element.Key, element.Value);
-            }
-            foreach (KeyValuePair<int, pret_remboursable> element in responsable.liste_pret_remboursable)
-            {
-                responsable.liste_pret_remboursable_provisoire.Remove(element.Key);
-            }
-        }
+        // Sid ahmed commented it because it's not used 
+        // public static void suivi()//Suivi mensuel des prets
+        // {
+        //     foreach (KeyValuePair<int, pret_remboursable> element in responsable.liste_pret_remboursable)
+        //     {
+        //         element.Value.paiement();
+        //     }
+        //     foreach (KeyValuePair<int, pret_remboursable> element in responsable.liste_pret_remboursable_provisoire)
+        //     {
+        //         responsable.liste_pret_remboursable.Add(element.Key, element.Value);
+        //     }
+        //     foreach (KeyValuePair<int, pret_remboursable> element in responsable.liste_pret_remboursable)
+        //     {
+        //         responsable.liste_pret_remboursable_provisoire.Remove(element.Key);
+        //     }
+        // }
 
-        public static void retardement_paiement(int cle)//Retardement du paiement pendant un mois
-        {
-            foreach (KeyValuePair<int, pret_remboursable> element in responsable.liste_pret_remboursable)
-            {
-                if (cle == element.Key)
-                {
-                    element.Value.retardement();
-                    element.Value.paiement();
-                }
-            }
-            foreach (KeyValuePair<int, pret_remboursable> element in responsable.liste_pret_remboursable_provisoire)
-            {
-                responsable.liste_pret_remboursable.Add(element.Key, element.Value);
-
-            }
-            foreach (KeyValuePair<int, pret_remboursable> element in responsable.liste_pret_remboursable)
-            {
-                responsable.liste_pret_remboursable_provisoire.Remove(element.Key);
-            }
-        }
 
         //clés a affecter-----------------------------------------------------------
-
+        
+        // AFFECTATION ID ( Sid Ahmed Classification)
         public static int cle_a_affecter_employe()//Clé unique pour les employés
         {
             int cpt = 1;
@@ -530,20 +563,24 @@ namespace WpfApp2
             return cpt;
         }
 
-        public static int type_a_affecter_type_pret()
-        {
-            int cpt = 1;
-            foreach (KeyValuePair<int, Type_pret> kvp in liste_types)
-            {
-                if (kvp.Value.Type_de_pret >= cpt)
-                {
-                    cpt = kvp.Value.Type_de_pret + 1;
-                }
-            }
-            return cpt;
-        }
+        // Sid Ahmed commented it because it's not used
+        
+        // public static int type_a_affecter_type_pret()
+        // {
+        //     int cpt = 1;
+        //     foreach (KeyValuePair<int, Type_pret> kvp in liste_types)
+        //     {
+        //         if (kvp.Value.Type_de_pret >= cpt)
+        //         {
+        //             cpt = kvp.Value.Type_de_pret + 1;
+        //         }
+        //     }
+        //     return cpt;
+        // }
 
         //methodes de creation-----------------------------------------------------------
+        
+        // CREATION ( Sid Ahmed Classification ) 
         public static void Creer_employe(string matricule, string nom, string prenom, string num_sec_social, DateTime date_naissance, string grade, DateTime date_prem, string etat, string ccp, string cle_ccp, string tel, string service, string mail, string etat_service)//Ajout  d'un nouvel employé
         {
             int cpt = 0;
@@ -683,6 +720,8 @@ namespace WpfApp2
             }
         }
 
+        // SAUVGARDE SQL ( Sid Ahmed classification ) 
+        
         //methodes sauvgarde-----------------------------------------------------------
 
         //methode verification si un element de clé (clé) existe dans le dictionnaire employés : pour savoir si c'est un nouvel element ou un elemnt dej existant
@@ -1126,6 +1165,16 @@ namespace WpfApp2
         }        
 
         //methodes archivage-----------------------------------------------------------
+        
+        public static void initialisation_archive_auto()//Archivage automatique de touts les prets en tenant compte de la durée saisie par l'utilisateur
+        {
+            if (Settings.mode_archivage)
+            {
+                archiver_pret_remboursable();
+                archiver_pret_non_remboursable();
+            }
+        }        
+
         public static void archiver_pret_non_remboursable()//archivage auto des prets non remboursables apres une durée choisie par l'utilisateur
         {
             foreach (KeyValuePair<int, pret_non_remboursable> kvp in liste_pret_non_remboursables)
@@ -1185,7 +1234,7 @@ namespace WpfApp2
             }
             responsable.liste_archives_provisoire.Clear();
         }
-
+        // Paiment ( Sid Ahmed classification ) 
         public static void paiement_standard(int cle)//paiement mensuel d'un pret remboursable(paiement habituel)
         {
             foreach (KeyValuePair<int, pret_remboursable> element in responsable.liste_pret_remboursable)
@@ -1290,18 +1339,330 @@ namespace WpfApp2
                 responsable.liste_pret_remboursable_provisoire.Remove(element.Key);
             }
         }
-
-        public static void initialisation_archive_auto()//Archivage automatique de touts les prets en tenant compte de la durée saisie par l'utilisateur
+        
+        public static void retardement_paiement(int cle)//Retardement du paiement pendant un mois
         {
-            if (Settings.mode_archivage)
+            foreach (KeyValuePair<int, pret_remboursable> element in responsable.liste_pret_remboursable)
             {
-                archiver_pret_remboursable();
-                archiver_pret_non_remboursable();
+                if (cle == element.Key)
+                {
+                    element.Value.retardement();
+                    element.Value.paiement();
+                }
             }
-        }        
+            foreach (KeyValuePair<int, pret_remboursable> element in responsable.liste_pret_remboursable_provisoire)
+            {
+                responsable.liste_pret_remboursable.Add(element.Key, element.Value);
+
+            }
+            foreach (KeyValuePair<int, pret_remboursable> element in responsable.liste_pret_remboursable)
+            {
+                responsable.liste_pret_remboursable_provisoire.Remove(element.Key);
+            }
+        }
+
+
         //----------------------------------------------------------------------------------------------------------------------
         //Recherche par critères 
-        public static void remplissage_liste_filtres()
+
+        
+        // STATISTQUES ( SId Ahmed classification )
+        public static void stat_pret_durrée(int année)
+        {
+            liste_stat_1.Clear();
+
+            for (int i = 1; i < 13; i++)
+            {
+                liste_stat_1.Add(i, 0);
+            }
+
+            if (DateTime.Now.Year >= année)
+            {
+
+                foreach (KeyValuePair<int, pret_non_remboursable> liste in liste_pret_non_remboursables)
+                {
+                    if (liste.Value.Date_demande.Year == année)
+                    {
+                        foreach (KeyValuePair<int, int> mois in liste_stat_1)
+                        {
+                            if (mois.Key == liste.Value.Date_demande.Month.GetHashCode())
+                            {
+                                liste_stat_1[mois.Key]++;
+                                break;
+                            }
+                        }
+                    }
+
+                }
+
+
+                foreach (KeyValuePair<int, pret_remboursable> liste in liste_pret_remboursable)
+                {
+                    if (liste.Value.Date_demande.Year == année)
+                    {
+                        foreach (KeyValuePair<int, int> mois in liste_stat_1)
+                        {
+                            if (mois.Key == liste.Value.Date_demande.Month.GetHashCode())
+                            {
+                                liste_stat_1[mois.Key]++;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+
+                foreach (KeyValuePair<int, Archive> liste in liste_archives)
+                {
+                    if (liste.Value.Pret.Date_demande.Year == année)
+                    {
+                        foreach (KeyValuePair<int, int> mois in liste_stat_1)
+                        {
+                            if (mois.Key == liste.Value.Pret.Date_demande.Month.GetHashCode())
+                            {
+                                liste_stat_1[mois.Key]++;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        public static void stat_type_pret(double montant, int annee)
+        {
+            list_sup.Clear();
+            list_inf.Clear();
+
+            foreach (KeyValuePair<int, Type_pret> liste in liste_types)
+            {
+                //Console.WriteLine(liste.Value.Type_de_pret);
+                if (!list_sup.ContainsKey(liste.Value.Type_de_pret))
+                {
+                    list_sup.Add(liste.Value.Type_de_pret, 0);
+                    list_inf.Add(liste.Value.Type_de_pret, 0);
+                }
+            }
+            foreach (KeyValuePair<int, pret_remboursable> liste in liste_pret_remboursable)
+            {
+                if (liste.Value.Date_demande.Year == annee)
+                {
+                    if (liste.Value.Montant <= montant) list_inf[liste.Value.Type_Pret.Type_de_pret] += 1;//si 3eme champ =0 alors le montant du pret est inferieur ou egala celui defini  par le responsable
+                    else list_sup[liste.Value.Type_Pret.Type_de_pret] += 1;
+                }
+            }
+
+            foreach (KeyValuePair<int, pret_non_remboursable> liste in liste_pret_non_remboursables)
+            {
+                if (liste.Value.Date_demande.Year == annee)
+                {
+                    if (liste.Value.Montant <= montant) list_inf[liste.Value.Type_Pret.Type_de_pret] += 1;//si 3eme champ =0 alors le montant du pret est inferieur ou egala celui defini  par le responsable
+                    else list_sup[liste.Value.Type_Pret.Type_de_pret] += 1;
+                }
+            }
+            foreach (KeyValuePair<int, Archive> liste in liste_archives)
+            {
+                if (liste.Value.Pret.Date_demande.Year == annee)
+                {
+                    if (liste.Value.Pret.Montant <= montant) list_inf[liste.Value.Pret.Type_Pret.Type_de_pret] += 1;//si 3eme champ =0 alors le montant du pret est inferieur ou egala celui defini  par le responsable
+                    else list_sup[liste.Value.Pret.Type_Pret.Type_de_pret] += 1;
+                }
+            }
+
+        }
+        
+        public static void stat_tresor(int année)
+        {
+            liste_tresor.Clear();
+
+            for (int i = 1; i < 53; i++)
+            {
+                liste_tresor.Add(i, 0);
+            }
+
+            string[] year_split;
+            string[] line_split = new string[54];
+            bool année_exist = false;
+
+            try
+            {
+                string path = @".\\Montant_tresor.txt";
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    string line = sr.ReadToEnd();
+                    year_split = line.Split('¦');
+                    for (int i = 1; i < year_split.Length; i++)
+                    {
+                        line_split = year_split[i].Split('|');
+
+                        if (DateTime.Parse(line_split[1]).Year == année)
+                        {
+                            année_exist = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Le fichier n'a pas pu être lu.");
+                Console.WriteLine(e.Message);
+            }
+
+            if (année_exist)
+            {
+                foreach (KeyValuePair<int, double> liste in responsable.liste_tresor.ToList())
+                {
+                    if (liste.Key < line_split.Length)
+                    {
+                        if (liste.Key == 1)
+                            liste_tresor[liste.Key] = double.Parse(line_split[0]);
+                        else
+                            liste_tresor[liste.Key] = double.Parse(line_split[liste.Key]);
+                    }
+                }
+            }
+        }
+
+        // TRESOR ( Sid Ahmed classification ) 
+
+        public static void nouveau_tresor(double montant_tresor)
+        {
+            sauvgarder_montant_tresor();
+
+            try
+            {
+                string path = @".\\Montant_tresor.txt";
+                using (StreamWriter sw = new StreamWriter(path, true))
+                {
+                    sw.Write("\n¦" + montant_tresor.ToString() + "|" + DateTime.Now.ToShortDateString());
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Le fichier n'a pas pu être lu.");
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public static void charger_montant_tresor()
+        {
+
+            try
+            {
+                string path = @".\\Montant_tresor.txt";
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    sr.BaseStream.Position = 0;
+                    string line = sr.ReadLine();
+                    tresor = double.Parse(line);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Le fichier n'a pas pu être lu.");
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public static void sauvgarder_montant_tresor()
+        {
+            string line;
+            string[] year_split = new string[100];
+            bool vide = true;
+
+            try
+            {
+                string path = @".\\Montant_tresor.txt";
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    sr.BaseStream.Seek(0, SeekOrigin.End);
+                    if (sr.BaseStream.Position != 0)
+                    {
+                        vide = false;
+                        sr.BaseStream.Position = 0;
+                        line = sr.ReadToEnd();
+                        year_split = line.Split('¦');
+                    }
+                }
+                using (StreamWriter sw = new StreamWriter(path))
+                {
+                    if (vide)
+                        sw.Write(tresor.ToString());
+                    else
+                    {
+                        year_split[0] = tresor.ToString();
+                        line = string.Join("\n¦", year_split);
+                        sw.Write(line);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Le fichier n'a pas pu être lu.");
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public static void ecriture_modif_tresor()
+        {
+            DateTime date_affectation_tresor = new DateTime();
+            int longeur = 0;
+            string[] line_split;
+            string[] year_split;
+
+            try
+            {
+                string path = @".\\Montant_tresor.txt";
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    string line = sr.ReadToEnd();
+                    year_split = line.Split('¦');
+                    line_split = year_split[year_split.Length - 1].Split('|');
+                    date_affectation_tresor = DateTime.Parse(line_split[1]);
+                    longeur = line_split.Length;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Le fichier n'a pas pu être lu.");
+                Console.WriteLine(e.Message);
+            }
+
+            DateTime date_dernier_affectation;
+            if (longeur > 2)
+                date_dernier_affectation = date_affectation_tresor.AddDays(7 * (longeur - 1));
+            else
+                date_dernier_affectation = date_affectation_tresor.AddDays(7);
+
+            while (DateTime.Now > date_dernier_affectation)
+            {
+                try
+                {
+                    string path = @".\\Montant_tresor.txt";
+                    using (StreamWriter sw = new StreamWriter(path, true))
+                    {
+                        sw.Write("|" + tresor.ToString());
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Le fichier n'a pas pu être lu.");
+                    Console.WriteLine(e.Message);
+                }
+
+                date_dernier_affectation = date_dernier_affectation.AddDays(7);
+            }
+        }
+        
+        
+        // RECHERCHE ( Sid Ahmed Classification )  
+        
+        //-----------------------------------------------------------------------------------------------
+        //Recherche par critères prets non remboursables et remboursables
+        
+                public static void remplissage_liste_filtres()
         {
             responsable.liste_filtres.Clear();
             foreach (KeyValuePair<int, Archive> kvp in liste_archives)
@@ -1582,299 +1943,6 @@ namespace WpfApp2
             filtrer_par_somme_max(somme2, somme_max);
         }
 
-        //methodes statistiques-----------------------------------------------------------
-
-        public static void stat_pret_durrée(int année)
-        {
-            liste_stat_1.Clear();
-
-            for (int i = 1; i < 13; i++)
-            {
-                liste_stat_1.Add(i, 0);
-            }
-
-            if (DateTime.Now.Year >= année)
-            {
-
-                foreach (KeyValuePair<int, pret_non_remboursable> liste in liste_pret_non_remboursables)
-                {
-                    if (liste.Value.Date_demande.Year == année)
-                    {
-                        foreach (KeyValuePair<int, int> mois in liste_stat_1)
-                        {
-                            if (mois.Key == liste.Value.Date_demande.Month.GetHashCode())
-                            {
-                                liste_stat_1[mois.Key]++;
-                                break;
-                            }
-                        }
-                    }
-
-                }
-
-
-                foreach (KeyValuePair<int, pret_remboursable> liste in liste_pret_remboursable)
-                {
-                    if (liste.Value.Date_demande.Year == année)
-                    {
-                        foreach (KeyValuePair<int, int> mois in liste_stat_1)
-                        {
-                            if (mois.Key == liste.Value.Date_demande.Month.GetHashCode())
-                            {
-                                liste_stat_1[mois.Key]++;
-                                break;
-                            }
-                        }
-                    }
-                }
-
-
-                foreach (KeyValuePair<int, Archive> liste in liste_archives)
-                {
-                    if (liste.Value.Pret.Date_demande.Year == année)
-                    {
-                        foreach (KeyValuePair<int, int> mois in liste_stat_1)
-                        {
-                            if (mois.Key == liste.Value.Pret.Date_demande.Month.GetHashCode())
-                            {
-                                liste_stat_1[mois.Key]++;
-                                break;
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
-
-        public static void stat_type_pret(double montant, int annee)
-        {
-            list_sup.Clear();
-            list_inf.Clear();
-
-            foreach (KeyValuePair<int, Type_pret> liste in liste_types)
-            {
-                //Console.WriteLine(liste.Value.Type_de_pret);
-                if (!list_sup.ContainsKey(liste.Value.Type_de_pret))
-                {
-                    list_sup.Add(liste.Value.Type_de_pret, 0);
-                    list_inf.Add(liste.Value.Type_de_pret, 0);
-                }
-            }
-            foreach (KeyValuePair<int, pret_remboursable> liste in liste_pret_remboursable)
-            {
-                if (liste.Value.Date_demande.Year == annee)
-                {
-                    if (liste.Value.Montant <= montant) list_inf[liste.Value.Type_Pret.Type_de_pret] += 1;//si 3eme champ =0 alors le montant du pret est inferieur ou egala celui defini  par le responsable
-                    else list_sup[liste.Value.Type_Pret.Type_de_pret] += 1;
-                }
-            }
-
-            foreach (KeyValuePair<int, pret_non_remboursable> liste in liste_pret_non_remboursables)
-            {
-                if (liste.Value.Date_demande.Year == annee)
-                {
-                    if (liste.Value.Montant <= montant) list_inf[liste.Value.Type_Pret.Type_de_pret] += 1;//si 3eme champ =0 alors le montant du pret est inferieur ou egala celui defini  par le responsable
-                    else list_sup[liste.Value.Type_Pret.Type_de_pret] += 1;
-                }
-            }
-            foreach (KeyValuePair<int, Archive> liste in liste_archives)
-            {
-                if (liste.Value.Pret.Date_demande.Year == annee)
-                {
-                    if (liste.Value.Pret.Montant <= montant) list_inf[liste.Value.Pret.Type_Pret.Type_de_pret] += 1;//si 3eme champ =0 alors le montant du pret est inferieur ou egala celui defini  par le responsable
-                    else list_sup[liste.Value.Pret.Type_Pret.Type_de_pret] += 1;
-                }
-            }
-
-        }
-
-        public static void nouveau_tresor(double montant_tresor)
-        {
-            sauvgarder_montant_tresor();
-
-            try
-            {
-                string path = @".\\Montant_tresor.txt";
-                using (StreamWriter sw = new StreamWriter(path, true))
-                {
-                    sw.Write("\n¦" + montant_tresor.ToString() + "|" + DateTime.Now.ToShortDateString());
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Le fichier n'a pas pu être lu.");
-                Console.WriteLine(e.Message);
-            }
-        }
-
-        public static void charger_montant_tresor()
-        {
-
-            try
-            {
-                string path = @".\\Montant_tresor.txt";
-                using (StreamReader sr = new StreamReader(path))
-                {
-                    sr.BaseStream.Position = 0;
-                    string line = sr.ReadLine();
-                    tresor = double.Parse(line);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Le fichier n'a pas pu être lu.");
-                Console.WriteLine(e.Message);
-            }
-        }
-
-        public static void sauvgarder_montant_tresor()
-        {
-            string line;
-            string[] year_split = new string[100];
-            bool vide = true;
-
-            try
-            {
-                string path = @".\\Montant_tresor.txt";
-                using (StreamReader sr = new StreamReader(path))
-                {
-                    sr.BaseStream.Seek(0, SeekOrigin.End);
-                    if (sr.BaseStream.Position != 0)
-                    {
-                        vide = false;
-                        sr.BaseStream.Position = 0;
-                        line = sr.ReadToEnd();
-                        year_split = line.Split('¦');
-                    }
-                }
-                using (StreamWriter sw = new StreamWriter(path))
-                {
-                    if (vide)
-                        sw.Write(tresor.ToString());
-                    else
-                    {
-                        year_split[0] = tresor.ToString();
-                        line = string.Join("\n¦", year_split);
-                        sw.Write(line);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Le fichier n'a pas pu être lu.");
-                Console.WriteLine(e.Message);
-            }
-        }
-
-        public static void ecriture_modif_tresor()
-        {
-            DateTime date_affectation_tresor = new DateTime();
-            int longeur = 0;
-            string[] line_split;
-            string[] year_split;
-
-            try
-            {
-                string path = @".\\Montant_tresor.txt";
-                using (StreamReader sr = new StreamReader(path))
-                {
-                    string line = sr.ReadToEnd();
-                    year_split = line.Split('¦');
-                    line_split = year_split[year_split.Length - 1].Split('|');
-                    date_affectation_tresor = DateTime.Parse(line_split[1]);
-                    longeur = line_split.Length;
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Le fichier n'a pas pu être lu.");
-                Console.WriteLine(e.Message);
-            }
-
-            DateTime date_dernier_affectation;
-            if (longeur > 2)
-                date_dernier_affectation = date_affectation_tresor.AddDays(7 * (longeur - 1));
-            else
-                date_dernier_affectation = date_affectation_tresor.AddDays(7);
-
-            while (DateTime.Now > date_dernier_affectation)
-            {
-                try
-                {
-                    string path = @".\\Montant_tresor.txt";
-                    using (StreamWriter sw = new StreamWriter(path, true))
-                    {
-                        sw.Write("|" + tresor.ToString());
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Le fichier n'a pas pu être lu.");
-                    Console.WriteLine(e.Message);
-                }
-
-                date_dernier_affectation = date_dernier_affectation.AddDays(7);
-            }
-        }
-
-
-        public static void stat_tresor(int année)
-        {
-            liste_tresor.Clear();
-
-            for (int i = 1; i < 53; i++)
-            {
-                liste_tresor.Add(i, 0);
-            }
-
-            string[] year_split;
-            string[] line_split = new string[54];
-            bool année_exist = false;
-
-            try
-            {
-                string path = @".\\Montant_tresor.txt";
-                using (StreamReader sr = new StreamReader(path))
-                {
-                    string line = sr.ReadToEnd();
-                    year_split = line.Split('¦');
-                    for (int i = 1; i < year_split.Length; i++)
-                    {
-                        line_split = year_split[i].Split('|');
-
-                        if (DateTime.Parse(line_split[1]).Year == année)
-                        {
-                            année_exist = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Le fichier n'a pas pu être lu.");
-                Console.WriteLine(e.Message);
-            }
-
-            if (année_exist)
-            {
-                foreach (KeyValuePair<int, double> liste in responsable.liste_tresor.ToList())
-                {
-                    if (liste.Key < line_split.Length)
-                    {
-                        if (liste.Key == 1)
-                            liste_tresor[liste.Key] = double.Parse(line_split[0]);
-                        else
-                            liste_tresor[liste.Key] = double.Parse(line_split[liste.Key]);
-                    }
-                }
-            }
-        }
-
-
-        //-----------------------------------------------------------------------------------------------
-        //Recherche par critères prets non remboursables et remboursables
         public static void remplissage_liste_filtres_rem()
         {
             responsable.liste_filtres_rem.Clear();
@@ -2242,216 +2310,8 @@ namespace WpfApp2
         //     filtrer_par_somme_min_non_rem(somme1, somme_min);
         //     filtrer_par_somme_max_non_rem(somme2, somme_max);
         // }
+        
 
-        //Import et export ves Microsoft Excel
-        public static void export_prêts_remboursable()
-        {
-            Excel.Application excel = new Excel.Application();
-            excel.Visible = true;
-            Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
-            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
-
-            sheet1.Cells[1, 1] = "Nom";
-            sheet1.Cells[1, 2] = "Prenom";
-            sheet1.Cells[1, 3] = "Numero social";
-            sheet1.Cells[1, 4] = "CCP";
-            sheet1.Cells[1, 5] = "Clé CCP";
-            sheet1.Cells[1, 6] = "Nature du prêt";
-            sheet1.Cells[1, 7] = "Motif";
-            sheet1.Cells[1, 8] = "Numero du PV";
-            sheet1.Cells[1, 9] = "Date du PV";
-            sheet1.Cells[1, 10] = "Montant (DA)";
-            sheet1.Cells[1, 11] = "Somme remboursée (DA)";
-            sheet1.Cells[1, 12] = "Date de demande";
-            sheet1.Cells[1, 13] = "Montant en lettre";
-            sheet1.Cells[1, 14] = "Date du premier paiment";
-            sheet1.Cells[1, 15] = "durée";
-            sheet1.Cells[1, 16] = "mois 1";
-            sheet1.Cells[1, 17] = "mois 2";
-            sheet1.Cells[1, 18] = "mois 3";
-            sheet1.Cells[1, 19] = "mois 4";
-            sheet1.Cells[1, 20] = "mois 5";
-            sheet1.Cells[1, 21] = "mois 6";
-            sheet1.Cells[1, 22] = "mois 7";
-            sheet1.Cells[1, 23] = "mois 8";
-            sheet1.Cells[1, 24] = "mois 9";
-            sheet1.Cells[1, 25] = "mois 10";
-
-            int i = 2;
-
-            foreach (KeyValuePair<int, pret_remboursable> element in responsable.liste_pret_remboursable)
-            {
-                if (element.Value.isPere())
-                {
-                    sheet1.Cells[i, 1] = element.Value.Employé.Nom;
-                    sheet1.Cells[i, 2] = element.Value.Employé.Prenom;
-                    sheet1.Cells[i, 3] = element.Value.Employé.sec_soc.ToString();
-                    sheet1.Cells[i, 4] = element.Value.Employé.compte_ccp;
-                    sheet1.Cells[i, 5] = element.Value.Employé.Cle_ccp;
-                    sheet1.Cells[i, 6] = element.Value.Type_Pret.Description;
-                    sheet1.Cells[i, 7] = element.Value.Motif;
-                    sheet1.Cells[i, 8] = element.Value.Num_pv.ToString();
-                    sheet1.Cells[i, 9] = element.Value.Date_pv;
-                    sheet1.Cells[i, 10] = element.Value.Montant.ToString();
-                    sheet1.Cells[i, 11] = element.Value.Somme_remboursée.ToString();
-                    sheet1.Cells[i, 12] = element.Value.Date_demande;
-                    sheet1.Cells[i, 13] = element.Value.Montant_lettre;
-                    sheet1.Cells[i, 14] = element.Value.Date_premier_paiment;
-                    sheet1.Cells[i, 15] = element.Value.Durée;
-
-                    int k = 1;
-
-                    foreach (KeyValuePair<int, double> elemens in element.Value.Etat)
-                    {
-                        sheet1.Cells[i, k + 15] = elemens.Value;
-                        k++;
-                    }
-                    if (element.Value.Debordement != -1)
-                    {
-                        List<double> montant_fils = new List<double>();
-                        montant_fils.Clear();
-                    repeat:;
-                        pret_remboursable fils = element.Value.getFils();
-                        foreach (double d in fils.Etat.Values)
-                        {
-                            montant_fils.Add(d);
-                        }
-                        if (fils.Debordement != -1)
-                        {
-                            goto repeat;
-                        }
-                        int cpt = 26;
-                        int mois_debor = 11;
-                        foreach (double d in montant_fils)
-                        {
-                            sheet1.Cells[1, cpt] = "mois " + mois_debor.ToString();
-                            sheet1.Cells[i, cpt] = d;
-                            cpt++;
-                            mois_debor++;
-                        }
-                    }
-                    i++;
-                }
-            }
-        }
-        public static void export_prêts_non_remboursable()
-        {
-            Excel.Application excel = new Excel.Application();
-
-            Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
-            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
-            sheet1.Cells[1, 1] = "numero social";
-            sheet1.Cells[1, 2] = "Nom";
-            sheet1.Cells[1, 3] = "Prenom";
-            sheet1.Cells[1, 4] = "type";
-            sheet1.Cells[1, 5] = "motif";
-            sheet1.Cells[1, 6] = "num_pv";
-            sheet1.Cells[1, 7] = "date_pv";
-            sheet1.Cells[1, 8] = "montant";
-            sheet1.Cells[1, 9] = "date_demande";
-            sheet1.Cells[1, 10] = "montant_lettre";
-
-            int i = 2;
-            foreach (KeyValuePair<int, pret_non_remboursable> element in responsable.liste_pret_non_remboursables)
-            {
-                sheet1.Cells[element.Key + 1, 1] = element.Value.Employé.sec_soc;
-                sheet1.Cells[element.Key + 1, 2] = element.Value.Employé.Nom;
-                sheet1.Cells[element.Key + 1, 3] = element.Value.Employé.Prenom;
-                sheet1.Cells[element.Key + 1, 4] = element.Value.Type_Pret.Description;
-                sheet1.Cells[element.Key + 1, 5] = element.Value.Motif;
-                sheet1.Cells[element.Key + 1, 6] = element.Value.Num_pv;
-                sheet1.Cells[element.Key + 1, 7] = element.Value.Date_pv;
-                sheet1.Cells[element.Key + 1, 8] = element.Value.Montant;
-                sheet1.Cells[element.Key + 1, 9] = element.Value.Date_demande;
-                sheet1.Cells[element.Key + 1, 10] = element.Value.Montant_lettre;
-                i++;
-            }
-            excel.Visible = true;
-        }
-        public static void export_Archive()
-        {
-            Excel.Application excel = new Excel.Application();
-            excel.Visible = true;
-            Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
-            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
-            sheet1.Cells[1, 1] = "Numero social";
-            sheet1.Cells[1, 2] = "Nom";
-            sheet1.Cells[1, 3] = "Prenom";
-            sheet1.Cells[1, 4] = "Type du pret";
-            sheet1.Cells[1, 5] = "Motif";
-            sheet1.Cells[1, 6] = "Numéro PV";
-            sheet1.Cells[1, 7] = "Date PV";
-            sheet1.Cells[1, 9] = "montant accordé";
-            sheet1.Cells[1, 8] = "Date de demande";
-            sheet1.Cells[1, 10] = "durée";
-            sheet1.Cells[1, 11] = "Observation";
-
-            int i = 2;
-
-            foreach (KeyValuePair<int, Archive> element in responsable.liste_archives)
-            {
-                sheet1.Cells[i, 1] = element.Value.Pret.Employé.sec_soc;
-                sheet1.Cells[i, 2] = element.Value.Pret.Employé.Nom;
-                sheet1.Cells[i, 3] = element.Value.Pret.Employé.Prenom;
-                sheet1.Cells[i, 4] = element.Value.Pret.Type_Pret.Description;
-                sheet1.Cells[i, 5] = element.Value.Pret.Motif;
-                sheet1.Cells[i, 6] = element.Value.Pret.Num_pv;
-                sheet1.Cells[i, 7] = element.Value.Pret.Date_pv;
-                sheet1.Cells[i, 9] = element.Value.Pret.Montant;
-                sheet1.Cells[i, 8] = element.Value.Pret.Date_demande;
-                sheet1.Cells[i, 10] = element.Value.Durée;
-                sheet1.Cells[i, 11] = element.Value.Observations;
-
-                i++;
-            }
-        }              
-
-
-        public static void Envoi_mail(pret_remboursable pret, double montant)//Envoi de mail et notification à l'employé
-        {
-            if (montant != 0)
-            {
-                try
-                {
-                    SmtpClient client = new SmtpClient();
-                    client.Host = "smtp.gmail.com";
-                    client.Port = 25;
-                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    client.UseDefaultCredentials = false;
-                    client.EnableSsl = true;
-
-                    client.Credentials = new System.Net.NetworkCredential(User_mail, User_pwd);
-
-                    client.Send(User_mail, pret.Employé.Email, "[Prelevement COS]", "Cher employé,\nUn montant de " + montant + " DA a été prelevé de votre compte le :" + DateTime.Now.ToShortDateString() + ",\n Cordialement.");
-                }
-
-                catch (Exception k)
-                {
-                    MessageBox.Show("Un Problème de connection est survenue.\nVeuillez vérifier votre connecvtion.", "erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            else
-            {
-                try
-                {
-                    SmtpClient client = new SmtpClient();
-                    client.Host = "smtp.gmail.com";
-                    client.Port = 25;
-                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    client.UseDefaultCredentials = false;
-                    client.EnableSsl = true;
-
-                    client.Credentials = new System.Net.NetworkCredential(User_mail, User_pwd);
-
-                    client.Send(User_mail, pret.Employé.Email, "[Prelevement COS]", "Cher employé,\nVotre prélevemnet a été diféré ou vos detes sont effacées le :" + DateTime.Now.ToShortDateString() + ",\n Cordialement.");
-                }
-
-                catch (Exception k)
-                {
-                    MessageBox.Show("Un Problème de connection est survenue.\nVeuillez vérifier votre connecvtion.", "erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
         public static void filtrer_par_date_recru_min(bool date, DateTime d_recru_min)
         {
 
@@ -2650,16 +2510,17 @@ namespace WpfApp2
 
         //Effacement des données contenues des les différentes listes
 
-        public static void effacer_données()
-        {
-            responsable.liste_archives.Clear();
-            responsable.liste_employes.Clear();
-            responsable.liste_pret_non_remboursables.Clear();
-            responsable.liste_pret_remboursable.Clear();
-            responsable.tresor = 0;
-            responsable.liste_archives_provisoire.Clear();
-            responsable.liste_pret_remboursable_provisoire.Clear();
-        }
+        // SI ahmed commented that bcz it's not used 
+        // public static void effacer_données()
+        // {
+        //     responsable.liste_archives.Clear();
+        //     responsable.liste_employes.Clear();
+        //     responsable.liste_pret_non_remboursables.Clear();
+        //     responsable.liste_pret_remboursable.Clear();
+        //     responsable.tresor = 0;
+        //     responsable.liste_archives_provisoire.Clear();
+        //     responsable.liste_pret_remboursable_provisoire.Clear();
+        // }
 
         public static void remise_a_zero(int choix)//Restauration de l'application
         {
@@ -2720,7 +2581,7 @@ namespace WpfApp2
             cnx.Close();
         }
 
-        //Bilan Annuel
+        // BILAN ( Sid Ahmed Classification )
         public static void remplissage_bilan(int année)
         {
             responsable.bilan.Clear();
@@ -2748,67 +2609,8 @@ namespace WpfApp2
             }
         }
 
-        public static void export_bilan()
-        {
-            Excel.Application excel = new Excel.Application();
-            excel.Visible = true;
-            Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
-            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
 
-            sheet1.Cells[1, 1] = "Nom";
-            sheet1.Cells[1, 2] = "Prenom";
-            sheet1.Cells[1, 3] = "Nature du prêt";
-            sheet1.Cells[1, 4] = "Motif";
-            sheet1.Cells[1, 5] = "Numero du PV";
-            sheet1.Cells[1, 6] = "Date du PV";
-            sheet1.Cells[1, 7] = "Date de demande";
-            sheet1.Cells[1, 8] = "Etat";
-            sheet1.Cells[1, 9] = "Somme accordée (DA)";
-            sheet1.Cells[1, 10] = "Somme remboursée (DA)";
-            int i = 2;
-
-            foreach (Prets element in responsable.bilan)
-            {
-
-                sheet1.Cells[i, 1] = element.Employé.Nom;
-                sheet1.Cells[i, 2] = element.Employé.Prenom;
-                sheet1.Cells[i, 3] = element.Type_Pret.Description;
-                sheet1.Cells[i, 4] = element.Motif;
-                sheet1.Cells[i, 5] = element.Num_pv.ToString();
-                sheet1.Cells[i, 6] = element.Date_pv;
-                sheet1.Cells[i, 9] = element.Montant.ToString();
-                sheet1.Cells[i, 7] = element.Date_demande;
-                sheet1.Cells[i, 10] = element.somme_rembours().ToString();
-                if (element.GetType() == typeof(pret_remboursable))
-                {
-                    if (responsable.liste_pret_remboursable.ContainsValue((pret_remboursable)element))
-                    {
-                        sheet1.Cells[i, 8] = "en cours";
-                    }
-                    else
-                    {
-                        sheet1.Cells[i, 8] = "cloturé";
-                    }
-                }
-                else
-                {
-                    if (element.GetType() == typeof(pret_non_remboursable))
-                    {
-                        if (responsable.liste_pret_non_remboursables.ContainsValue((pret_non_remboursable)element))
-                        {
-                            sheet1.Cells[i, 8] = "en cours";
-                        }
-                        else
-                        {
-                            sheet1.Cells[i, 8] = "cloturé";
-                        }
-
-                    }
-
-                }
-                i++;
-            }
-        }
+        // IMPORT + EXPORT ( Sid Ahmed Classification )
 
         public static bool Verif_fichier_import_remboursable(Worksheet sheet)
         {
@@ -2819,6 +2621,7 @@ namespace WpfApp2
             }
             return validité;
         }
+        
 
         public static void import_prêts_remboursable()
         {
@@ -3109,6 +2912,229 @@ namespace WpfApp2
             fin:;
                 excelApp.Quit();
             } 
+        }
+                //Import et export ves Microsoft Excel
+        public static void export_Archive()
+        {
+            Excel.Application excel = new Excel.Application();
+            excel.Visible = true;
+            Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+            sheet1.Cells[1, 1] = "Numero social";
+            sheet1.Cells[1, 2] = "Nom";
+            sheet1.Cells[1, 3] = "Prenom";
+            sheet1.Cells[1, 4] = "Type du pret";
+            sheet1.Cells[1, 5] = "Motif";
+            sheet1.Cells[1, 6] = "Numéro PV";
+            sheet1.Cells[1, 7] = "Date PV";
+            sheet1.Cells[1, 9] = "montant accordé";
+            sheet1.Cells[1, 8] = "Date de demande";
+            sheet1.Cells[1, 10] = "durée";
+            sheet1.Cells[1, 11] = "Observation";
+
+            int i = 2;
+
+            foreach (KeyValuePair<int, Archive> element in responsable.liste_archives)
+            {
+                sheet1.Cells[i, 1] = element.Value.Pret.Employé.sec_soc;
+                sheet1.Cells[i, 2] = element.Value.Pret.Employé.Nom;
+                sheet1.Cells[i, 3] = element.Value.Pret.Employé.Prenom;
+                sheet1.Cells[i, 4] = element.Value.Pret.Type_Pret.Description;
+                sheet1.Cells[i, 5] = element.Value.Pret.Motif;
+                sheet1.Cells[i, 6] = element.Value.Pret.Num_pv;
+                sheet1.Cells[i, 7] = element.Value.Pret.Date_pv;
+                sheet1.Cells[i, 9] = element.Value.Pret.Montant;
+                sheet1.Cells[i, 8] = element.Value.Pret.Date_demande;
+                sheet1.Cells[i, 10] = element.Value.Durée;
+                sheet1.Cells[i, 11] = element.Value.Observations;
+
+                i++;
+            }
+        }    
+        public static void export_prêts_remboursable()
+        {
+            Excel.Application excel = new Excel.Application();
+            excel.Visible = true;
+            Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+
+            sheet1.Cells[1, 1] = "Nom";
+            sheet1.Cells[1, 2] = "Prenom";
+            sheet1.Cells[1, 3] = "Numero social";
+            sheet1.Cells[1, 4] = "CCP";
+            sheet1.Cells[1, 5] = "Clé CCP";
+            sheet1.Cells[1, 6] = "Nature du prêt";
+            sheet1.Cells[1, 7] = "Motif";
+            sheet1.Cells[1, 8] = "Numero du PV";
+            sheet1.Cells[1, 9] = "Date du PV";
+            sheet1.Cells[1, 10] = "Montant (DA)";
+            sheet1.Cells[1, 11] = "Somme remboursée (DA)";
+            sheet1.Cells[1, 12] = "Date de demande";
+            sheet1.Cells[1, 13] = "Montant en lettre";
+            sheet1.Cells[1, 14] = "Date du premier paiment";
+            sheet1.Cells[1, 15] = "durée";
+            sheet1.Cells[1, 16] = "mois 1";
+            sheet1.Cells[1, 17] = "mois 2";
+            sheet1.Cells[1, 18] = "mois 3";
+            sheet1.Cells[1, 19] = "mois 4";
+            sheet1.Cells[1, 20] = "mois 5";
+            sheet1.Cells[1, 21] = "mois 6";
+            sheet1.Cells[1, 22] = "mois 7";
+            sheet1.Cells[1, 23] = "mois 8";
+            sheet1.Cells[1, 24] = "mois 9";
+            sheet1.Cells[1, 25] = "mois 10";
+
+            int i = 2;
+
+            foreach (KeyValuePair<int, pret_remboursable> element in responsable.liste_pret_remboursable)
+            {
+                if (element.Value.isPere())
+                {
+                    sheet1.Cells[i, 1] = element.Value.Employé.Nom;
+                    sheet1.Cells[i, 2] = element.Value.Employé.Prenom;
+                    sheet1.Cells[i, 3] = element.Value.Employé.sec_soc.ToString();
+                    sheet1.Cells[i, 4] = element.Value.Employé.compte_ccp;
+                    sheet1.Cells[i, 5] = element.Value.Employé.Cle_ccp;
+                    sheet1.Cells[i, 6] = element.Value.Type_Pret.Description;
+                    sheet1.Cells[i, 7] = element.Value.Motif;
+                    sheet1.Cells[i, 8] = element.Value.Num_pv.ToString();
+                    sheet1.Cells[i, 9] = element.Value.Date_pv;
+                    sheet1.Cells[i, 10] = element.Value.Montant.ToString();
+                    sheet1.Cells[i, 11] = element.Value.Somme_remboursée.ToString();
+                    sheet1.Cells[i, 12] = element.Value.Date_demande;
+                    sheet1.Cells[i, 13] = element.Value.Montant_lettre;
+                    sheet1.Cells[i, 14] = element.Value.Date_premier_paiment;
+                    sheet1.Cells[i, 15] = element.Value.Durée;
+
+                    int k = 1;
+
+                    foreach (KeyValuePair<int, double> elemens in element.Value.Etat)
+                    {
+                        sheet1.Cells[i, k + 15] = elemens.Value;
+                        k++;
+                    }
+                    if (element.Value.Debordement != -1)
+                    {
+                        List<double> montant_fils = new List<double>();
+                        montant_fils.Clear();
+                    repeat:;
+                        pret_remboursable fils = element.Value.getFils();
+                        foreach (double d in fils.Etat.Values)
+                        {
+                            montant_fils.Add(d);
+                        }
+                        if (fils.Debordement != -1)
+                        {
+                            goto repeat;
+                        }
+                        int cpt = 26;
+                        int mois_debor = 11;
+                        foreach (double d in montant_fils)
+                        {
+                            sheet1.Cells[1, cpt] = "mois " + mois_debor.ToString();
+                            sheet1.Cells[i, cpt] = d;
+                            cpt++;
+                            mois_debor++;
+                        }
+                    }
+                    i++;
+                }
+            }
+        }
+        public static void export_prêts_non_remboursable()
+        {
+            Excel.Application excel = new Excel.Application();
+
+            Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+            sheet1.Cells[1, 1] = "numero social";
+            sheet1.Cells[1, 2] = "Nom";
+            sheet1.Cells[1, 3] = "Prenom";
+            sheet1.Cells[1, 4] = "type";
+            sheet1.Cells[1, 5] = "motif";
+            sheet1.Cells[1, 6] = "num_pv";
+            sheet1.Cells[1, 7] = "date_pv";
+            sheet1.Cells[1, 8] = "montant";
+            sheet1.Cells[1, 9] = "date_demande";
+            sheet1.Cells[1, 10] = "montant_lettre";
+
+            int i = 2;
+            foreach (KeyValuePair<int, pret_non_remboursable> element in responsable.liste_pret_non_remboursables)
+            {
+                sheet1.Cells[element.Key + 1, 1] = element.Value.Employé.sec_soc;
+                sheet1.Cells[element.Key + 1, 2] = element.Value.Employé.Nom;
+                sheet1.Cells[element.Key + 1, 3] = element.Value.Employé.Prenom;
+                sheet1.Cells[element.Key + 1, 4] = element.Value.Type_Pret.Description;
+                sheet1.Cells[element.Key + 1, 5] = element.Value.Motif;
+                sheet1.Cells[element.Key + 1, 6] = element.Value.Num_pv;
+                sheet1.Cells[element.Key + 1, 7] = element.Value.Date_pv;
+                sheet1.Cells[element.Key + 1, 8] = element.Value.Montant;
+                sheet1.Cells[element.Key + 1, 9] = element.Value.Date_demande;
+                sheet1.Cells[element.Key + 1, 10] = element.Value.Montant_lettre;
+                i++;
+            }
+            excel.Visible = true;
+        }
+        public static void export_bilan()
+        {
+            Excel.Application excel = new Excel.Application();
+            excel.Visible = true;
+            Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+
+            sheet1.Cells[1, 1] = "Nom";
+            sheet1.Cells[1, 2] = "Prenom";
+            sheet1.Cells[1, 3] = "Nature du prêt";
+            sheet1.Cells[1, 4] = "Motif";
+            sheet1.Cells[1, 5] = "Numero du PV";
+            sheet1.Cells[1, 6] = "Date du PV";
+            sheet1.Cells[1, 7] = "Date de demande";
+            sheet1.Cells[1, 8] = "Etat";
+            sheet1.Cells[1, 9] = "Somme accordée (DA)";
+            sheet1.Cells[1, 10] = "Somme remboursée (DA)";
+            int i = 2;
+
+            foreach (Prets element in responsable.bilan)
+            {
+
+                sheet1.Cells[i, 1] = element.Employé.Nom;
+                sheet1.Cells[i, 2] = element.Employé.Prenom;
+                sheet1.Cells[i, 3] = element.Type_Pret.Description;
+                sheet1.Cells[i, 4] = element.Motif;
+                sheet1.Cells[i, 5] = element.Num_pv.ToString();
+                sheet1.Cells[i, 6] = element.Date_pv;
+                sheet1.Cells[i, 9] = element.Montant.ToString();
+                sheet1.Cells[i, 7] = element.Date_demande;
+                sheet1.Cells[i, 10] = element.somme_rembours().ToString();
+                if (element.GetType() == typeof(pret_remboursable))
+                {
+                    if (responsable.liste_pret_remboursable.ContainsValue((pret_remboursable)element))
+                    {
+                        sheet1.Cells[i, 8] = "en cours";
+                    }
+                    else
+                    {
+                        sheet1.Cells[i, 8] = "cloturé";
+                    }
+                }
+                else
+                {
+                    if (element.GetType() == typeof(pret_non_remboursable))
+                    {
+                        if (responsable.liste_pret_non_remboursables.ContainsValue((pret_non_remboursable)element))
+                        {
+                            sheet1.Cells[i, 8] = "en cours";
+                        }
+                        else
+                        {
+                            sheet1.Cells[i, 8] = "cloturé";
+                        }
+
+                    }
+
+                }
+                i++;
+            }
         }
     }
 }

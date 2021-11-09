@@ -82,6 +82,7 @@ namespace WpfApp2
         {
             if (Description.Text != "")
             {
+
                 bool a = (bool)Remboursable.IsChecked;
                 bool b = (bool)Disponible.IsChecked;
                 string c = Description.Text;
@@ -135,10 +136,14 @@ namespace WpfApp2
                 prets.Add(nouveauPret);
                 Types_Prets.ItemsSource = prets;
 
+
+                // END UI SECTION 
+
                 int cpt = 1;
                 foreach (KeyValuePair<int, Type_pret> liste in responsable.liste_types)
                 {
                     if (liste.Value.Type_de_pret >= cpt)
+                        // ne pas parler aux inconnue
                         cpt = liste.Value.Type_de_pret + 1;
                 }
                 int dispo = 1;
