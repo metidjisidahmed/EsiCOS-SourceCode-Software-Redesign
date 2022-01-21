@@ -2494,7 +2494,8 @@ namespace WpfApp2
         }
 
         //------------------------------------------------------------------------------------------------------------------------
-
+        
+        
         public static void recherche_par_criteres_non_rem(bool date1, DateTime d_inf, bool date2, DateTime d_max, bool date3, DateTime pv_min, bool date4, DateTime pv_max, bool somme1, double somme_min, bool somme2, double somme_max, bool employé, bool type, bool e, string etat, bool a, DateTime drmin, bool b, DateTime drmax)
         {
             responsable.remplissage_liste_filtres_non_rem();

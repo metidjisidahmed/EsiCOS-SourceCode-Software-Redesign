@@ -266,11 +266,25 @@
     </Compile>
     <Compile Include="Noyau\archive.cs" />
     <Compile Include="Noyau\Employé.cs" />
+    <Compile Include="Noyau\Iterator\Iterator.cs" />
     <Compile Include="Noyau\Modification.cs" />
+    <Compile Include="Noyau\Prets Factory Pattern\Pret.cs" />
+    <Compile Include="Noyau\Prets Factory Pattern\PretNonRemboursable.cs" />
+    <Compile Include="Noyau\Prets Factory Pattern\PretRemboursable.cs" />
+    <Compile Include="Noyau\Prets Factory Pattern\PretsFactory.cs" />
+    <Compile Include="Noyau\Prets Factory Pattern\PretsNonRemboursableFactory.cs" />
+    <Compile Include="Noyau\Prets Factory Pattern\PretsRemboursableFactory.cs" />
+    <Compile Include="Noyau\Prets Factory Pattern\Pret_Don.cs" />
+    <Compile Include="Noyau\Prets Factory Pattern\Pret_Electromenager_Non_Remborsable.cs" />
+    <Compile Include="Noyau\Prets Factory Pattern\Pret_Electromenager_Remboursable.cs" />
+    <Compile Include="Noyau\Prets Factory Pattern\Pret_Social.cs" />
     <Compile Include="Noyau\prets.cs" />
     <Compile Include="Noyau\pret_non_remboursable.cs" />
     <Compile Include="Noyau\pret_remboursable.cs" />
     <Compile Include="Noyau\responsable.cs" />
+    <Compile Include="Noyau\Tempalte Pattern\PretManager.cs" />
+    <Compile Include="Noyau\Tempalte Pattern\PretNonRemboursableManager.cs" />
+    <Compile Include="Noyau\Tempalte Pattern\PretRemboursableManager.cs" />
     <Compile Include="Noyau\Type_pret.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
