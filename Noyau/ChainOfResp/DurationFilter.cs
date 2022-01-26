@@ -3,9 +3,23 @@ using System.Collections.Generic;
 
 namespace WpfApp2.ChainOfResp
 {
-    public interface Filter
+    private List<Criteria> criterias;
+    private Filter next;
+    public class DurationFilter : Filter
     {
-        Filter SetNext(Filter filter);
-        List<Object> filter(List objects);
+        public Filter SetNext(Filter filter)
+        {
+            this.next = filter;
+        }
+
+        public List<Object> filter(List<Object> objects)
+        {
+            // filtrer les objets selon les criteres de cette class
+            List<Object> filtered_objects;
+
+            return next.filter(filtered_objects);
+        }
+
+
     }
 }
